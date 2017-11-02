@@ -37,13 +37,13 @@ describe('Authentication', function () {
 
           response.status.should.equal(201);
           response.body.should.be.an('object');
-          response.body.should.have.property('_id');
-          response.body.should.have.property('name');
-          response.body.should.have.property('username');
-          response.body.should.have.property('password');
-          response.body.name.should.equal(validUser.name);
-          response.body.username.should.equal(validUser.username);
-          response.body.password.should.equal(hashPassword(validUser.password));
+          response.body.user.should.have.property('_id');
+          response.body.user.should.have.property('name');
+          response.body.user.should.have.property('username');
+          response.body.user.should.have.property('password');
+          response.body.user.name.should.equal(validUser.name);
+          response.body.user.username.should.equal(validUser.username);
+          response.body.successful_hash.should.equal(true);
           requestFinished();
 
         });
