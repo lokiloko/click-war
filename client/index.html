@@ -19,11 +19,11 @@
     <style media="screen">
       .kiri {
         background: red;
-        height: 500px
+        height: 700px
       }
       .kanan {
         background: blue;
-        height: 500px
+          height: 700px
       }
       .navbar {
         margin-bottom: 0;
@@ -72,7 +72,38 @@
         -ms-transition: all 0.4s ease-out;
         -o-transition: all 0.4s ease-out;
       }
+      #gambar1 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
 
+      #gambar2 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+
+      #gambar3 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+      #gambar4 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+      #gambar5 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+      #gambar6 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
     </style>
   </head>
   <body>
@@ -137,6 +168,11 @@
         <div class="col-md-6">
           <h3>Score: </h3>
         </div>
+        <div class="id="myPicture" alt="some image"">
+          <img src="./img/ball.png" width="70px" id="gambar1"/>
+          <img src="./img/bomb.png" width="70px" id="gambar2"/>
+          <img src="./img/box.png"  width="70px" id="gambar3"/>
+        </div>
       </div>
       <div class="col-md-6 kanan">
         <div class="col-md-6">
@@ -144,6 +180,11 @@
         </div>
         <div class="col-md-6">
           <h3>Score: </h3>
+        </div>
+        <div class="id="myPicture2" alt="some image"">
+          <img src="./img/ball.png" width="70px" id="gambar4"/>
+          <img src="./img/bomb.png" width="70px" id="gambar5"/>
+          <img src="./img/box.png"  width="70px" id="gambar6"/>
         </div>
       </div>
     </div>
@@ -177,6 +218,44 @@
     $("#countdown").html(currentNum); // init first time based on n
     self.setInterval(function(){anim()},1325);
     });
+
+    window.onload = choosePic;
+    var myPix = new Array("./img/bomb.png","./img/ball.png","./img/box.png");
+    var myPix2 = new Array("./img/bomb.png","./img/ball.png","./img/box.png");
+    function choosePic() {
+    //  var randomNum = Math.floor(Math.random() * myPix.length);
+    //  document.getElementById("myPicture").src = myPix[randomNum];
+    //  var randomNum2 = Math.floor(Math.random() * myPix2.length);
+    //  document.getElementById("myPicture2").src = myPix2[randomNum2];
+    }
+    var leftPos = Math.floor(Math.random() * 500)
+    var topPos = Math.floor(Math.random() * 500)
+    $('#gambar1').css("left", leftPos)
+    $('#gambar1').css("top", topPos)
+    leftPos = Math.floor(Math.random() * 500)
+    topPos = Math.floor(Math.random() * 500)
+    $('#gambar2').css("left", leftPos)
+    $('#gambar2').css("top", topPos)
+    leftPos = Math.floor(Math.random() * 500)
+    topPos = Math.floor(Math.random() * 500)
+    $('#gambar3').css("left", leftPos)
+    $('#gambar3').css("top", topPos)
+
+    var leftPos2 = Math.floor(Math.random() * 500)
+    var topPos2 = Math.floor(Math.random() * 500)
+    $('#gambar4').css("left", leftPos2)
+    $('#gambar4').css("top", topPos2)
+    leftPos2 = Math.floor(Math.random() * 500)
+    topPos2 = Math.floor(Math.random() * 500)
+    $('#gambar5').css("left", leftPos2)
+    $('#gambar5').css("top", topPos2)
+    leftPos2 = Math.floor(Math.random() * 500)
+    topPos2 = Math.floor(Math.random() * 500)
+    $('#gambar6').css("left", leftPos2)
+    $('#gambar6').css("top", topPos2)
+
+
+
     </script>
   </body>
 </html>
