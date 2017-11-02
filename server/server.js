@@ -20,3 +20,5 @@ server.use((req, res) => {
 server.listen(port, () => {
   console.log('Click War Server running on port', port);
 });
+
+module.exports = server;
