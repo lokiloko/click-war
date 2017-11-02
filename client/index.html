@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Click War</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style media="screen">
+      .kiri {
+        background: red;
+        height: 500px
+      }
+      .kanan {
+        background: blue;
+        height: 500px
+      }
+      .navbar {
+        margin-bottom: 0;
+        border: none;
+        border-radius: 0
+      }
+      .content h3 {
+        color: silver
+      }
+      @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:700italic);
+      #countdown {
+        font-family: 'Roboto Condensed', sans-serif;
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -100px;
+        margin-top: -50px;
+        color: white;
+        font-size: 5em;
+        text-align: center;
+        font-weight: bold;
+        font-style: italic;
+        -webkit-opacity: 1;
+        -moz-opacity: 1;
+        opacity: 1;
+        -webkit-transition: opacity 0.4s ease;
+        -moz-transition: opacity 0.4s ease;
+        -ms-transition: opacity 0.4s ease;
+        -o-transition: opacity 0.4s ease;
+        /* solve for flicker problem */
+        -webkit-perspective: 1000;
+        -webkit-backface-visibility: hidden;
+      }
+      #countdown.puffer {
+        -webkit-opacity: 0;
+        -moz-opacity: 0;
+        opacity: 0;
+        -webkit-transform: scale(1.6, 1.6);
+        -moz-transform: scale(1.6, 1.6);
+        -ms-transform: scale(1.6, 1.6);
+        -o-transform: scale(1.6, 1.6);
+        -webkit-transition: all 0.4s ease-out;
+        -moz-transition: all 0.4s ease-out;
+        -ms-transition: all 0.4s ease-out;
+        -o-transition: all 0.4s ease-out;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="navbar">
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Click War</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <form>
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Login</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </nav>
+    </div>
+
+    <div class="content">
+      <div class="col-md-6 kiri">
+        <div class="col-md-6">
+          <h3>Name: </h3>
+        </div>
+        <div class="col-md-6">
+          <h3>Score: </h3>
+        </div>
+      </div>
+      <div class="col-md-6 kanan">
+        <div class="col-md-6">
+          <h3>Name: </h3>
+        </div>
+        <div class="col-md-6">
+          <h3>Score: </h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="stopwatch">
+      <div id="countdown"></div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    var startNum;
+    var currentNum;
+
+    function addClassDelayed(jqObj, c, to) {
+      setTimeout(function() { jqObj.addClass(c); }, to);
+    }
+
+    function anim() {
+    addClassDelayed($("#countdown"), "puffer", 600);
+    if (currentNum == 0) currentNum = startNum-1; else currentNum--;
+    $('#countdown').html(currentNum+1);
+    $('#countdown').removeClass("puffer");
+    }
+
+    $(function() {
+    startNum = 30;
+    currentNum = startNum;
+    $("#countdown").html(currentNum); // init first time based on n
+    self.setInterval(function(){anim()},1325);
+    });
+    </script>
+  </body>
+</html>
