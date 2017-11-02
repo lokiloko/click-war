@@ -6,6 +6,7 @@ const server = require('../server');
 
 const clearUser = require('../helpers/clearUser');
 const hashPassword = require('../helpers/hashPassword');
+const validateHash = require('../helpers/validateHash');
 
 chai.use(chaiHttp);
 
@@ -37,13 +38,17 @@ describe('Authentication', function () {
 
           response.status.should.equal(201);
           response.body.should.be.an('object');
-          response.body.user.should.have.property('_id');
-          response.body.user.should.have.property('name');
-          response.body.user.should.have.property('username');
-          response.body.user.should.have.property('password');
-          response.body.user.name.should.equal(validUser.name);
-          response.body.user.username.should.equal(validUser.username);
-          response.body.successful_hash.should.equal(true);
+          response.body.should.have.property('_id');
+          response.body.should.have.property('name');
+          response.body.should.have.property('username');
+          response.body.should.have.property('password');
+          response.body.name.should.equal(validUser.name);
+          response.body.username.should.equal(validUser.username);
+
+          const successfulHash = validateHash(validUser.password, response.body.password || '');
+
+          successfulHash.should.equal(true);
+
           requestFinished();
 
         });

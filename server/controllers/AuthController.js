@@ -1,7 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const validateHash = require('../helpers/validateHash');
 
 class AuthController {
 
@@ -14,10 +14,7 @@ class AuthController {
         password: req.body.password
       })
       .then((user) => {
-        res.status(201).json({
-          user: user,
-          successful_hash: bcrypt.compareSync(req.body.password, user.password)
-        });
+        res.status(201).json(user);
       })
       .catch((err) => {
         res.status(400).json(err);
@@ -37,7 +34,7 @@ class AuthController {
           });
         } else {
 
-          const correctPassword = bcrypt.compareSync(req.body.password, user.password);
+          const correctPassword = validateHash(req.body.password, user.password);
 
           if (correctPassword) {
 
