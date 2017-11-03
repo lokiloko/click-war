@@ -14,9 +14,9 @@ Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:3000'
 })
 
-Vue.use(VueFire)
-
 Vue.config.productionTip = false
+
+Vue.use(VueFire)
 
 /* eslint-disable no-new */
 new Vue({
