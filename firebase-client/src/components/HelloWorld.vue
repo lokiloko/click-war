@@ -44,7 +44,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" v-on:click="submitLogin($event)">Save changes</button>
+                  <button type="button" class="btn btn-primary" v-on:click="submitLogin($event)">Login</button>
                 </div>
               </div>
             </form>
@@ -79,7 +79,8 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" v-on:click="submitRegister($event)">Save changes</button>
+                  <button type="button" class="btn btn-primary" v-on:click="submitRegister($event)">Register</button>
+                  <!-- <button type="button" class="btn btn-primary" v-on:click="closeLu">Register</button> -->
                 </div>
               </div>
             </form>
@@ -108,6 +109,9 @@ export default {
     }
   },
   methods: {
+    closeLu() {
+      $('#myModalRegister').modal('hide');
+    },
     submitRegister: function (e) {
       e.preventDefault()
       this.$validator.validateAll({
@@ -118,9 +122,8 @@ export default {
       if(!this.errors.any()){
         this.$http.post('http://click-war-api.dimitri.tk/auth/register', this.formDataRegister)
         .then(data => {
-          alert('Sukses Register!')
-          this.dataPlayer.push(data)
-          window.location.reload()
+          // console.log(data)
+          $('#myModalRegister').modal('hide');
         })
         .catch(err => {
           console.log(err)
@@ -137,6 +140,7 @@ export default {
         this.$http.post('http://click-war-api.dimitri.tk/auth/login', this.formDataLogin)
         .then(({data}) => {
           localStorage.setItem('token', data.access_token)
+          $('#myModalLogin').modal('hide');
           this.$router.push('/')
         })
         .catch(err => {

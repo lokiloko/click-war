@@ -8,11 +8,14 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background: url('https://media.giphy.com/media/13DlyUxneed3Nu/giphy.gif') no-repeat center center fixed;
+  background: url('https://media1.tenor.com/images/c1f46771106e7f9fea192e8976a2865f/tenor.gif?itemid=5574904') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+#loading h3 {
+  color: #fff;
 }
 .kiri {
   /*background: red;*/
@@ -141,8 +144,8 @@
     <div id="countdown"></div>
   </div>
   <div id="loading" style="display:none">
-    <p>{{this.room.player1.playerName}} : {{ this.room.player1.score }}</p>
-    <p>{{this.room.player2.playerName}} : {{ this.room.player2.score }}</p>
+    <h3>{{this.room.player1.playerName}} : {{ this.room.player1.score }}</h3>
+    <h3>{{this.room.player2.playerName}} : {{ this.room.player2.score }}</h3>
     <button v-if="isPlayer1" v-on:click="playAgain">Lagi</button>
   </div>
 </div>
@@ -208,7 +211,7 @@ function anim() {
 var gameCountdown
 function startGame() {
   $(function() {
-    startNum = 2;
+    startNum = 30;
     currentNum = startNum;
     $("#countdown").html(currentNum); // init first time based on n
     gameCountdown = setInterval(function() {
@@ -258,7 +261,7 @@ export default {
         gambar5: -2,
         // gambar6: 2
       },
-
+      isReady: 0
     }
   },
   methods: {
@@ -274,6 +277,7 @@ export default {
     playAgain() {
       var winner;
       var loser;
+      var self = this;
       if(this.room.player1.score >= this.room.player2.score) {
         winner = {
           playerName: this.room.player1.playerName,
@@ -293,13 +297,15 @@ export default {
           score:this.room.player1.score
         }
       }
-      this.$http.post('/scores').send({
+      console.log('Winner', winner);
+      console.log('Loser', loser);
+      this.$http.post('http://click-war-api.dimitri.tk/scores', {
         winner: winner.playerName,
         loser: loser.playerName,
         winner_score: winner.score,
         loser_score: loser.score
       }).then((response) => {
-        this.startGame()
+        self.startGame()
         $('#loading').hide()
       }).catch((err) => {
         console.error(err)
@@ -375,6 +381,13 @@ export default {
       //   this.$router.push('/')
       // }
       this.$router.push('/')
+    },
+    isGameReady() {
+      if(this.room.status) {
+        setTimeout(function() {
+          self.startGame()
+        }, 3000)
+      }
     }
   },
   firebase() {
@@ -386,6 +399,13 @@ export default {
     }
   },
   created: function() {
+    db.ref('/' + this.room_name).on('value', function(snapshot) {
+      if(snapshot.val().status) {
+        setTimeout(function() {
+          self.startGame()
+        }, 3000)
+      }
+    })
     var self = this
     db.ref('/' + this.room_name).once('value', function(snapshot) {
       if (!snapshot.val()) {
@@ -399,9 +419,25 @@ export default {
   },
   mounted: function() {
     var self = this
-    setTimeout(function() {
-      self.startGame()
-    }, 3000)
+    // setTimeout(function() {
+    //   self.startGame()
+    // }, 3000)
+    db.ref('/' + this.room_name).once('value', function(snapshot) {
+      self.isReady = snapshot.val().status
+      if(snapshot.val().player1.status && snapshot.val().player2.status) {
+        db.ref('/' + self.room_name).set({
+          player1: snapshot.val().player1,
+          player2: snapshot.val().player2,
+          status: 1
+        })
+        self.isReady = 1
+      }
+    })
+  },
+  watch: {
+    isReady: function (val) {
+      this.isGameReady()
+    }
   }
 }
 </script>

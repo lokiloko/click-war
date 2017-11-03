@@ -8,6 +8,7 @@
         </div>
         <div class="form-group">
           <button type="button" class="btn btn-def btn-block" v-on:click="createRoom">Masuk Room</button>
+          <button type="button" class="btn btn-def btn-block" v-on:click="doLogout">Log Out</button>
         </div>
       </form>
     </div>
@@ -16,6 +17,7 @@
 
 <script>
 import db from '@/firebase/firebase'
+import JsonWebToken from 'jsonwebtoken'
 export default {
   data () {
     return {
@@ -23,6 +25,20 @@ export default {
     }
   },
   methods: {
+    doLogout() {
+      localStorage.clear()
+      this.$router.push('/login')
+    },
+    getData: function () {
+      if(localStorage.token){
+        let token = localStorage.token
+        let decoded = JsonWebToken.decode(token)
+        localStorage.setItem('player', decoded.username)
+        localStorage.setItem('dataUser', JSON.stringify(decoded))
+      }else{
+        this.$router.push('/login')
+      }
+    },
     createRoom () {
       var self = this
       db.ref(self.roomName).once('value', function (snapshot) {
@@ -65,6 +81,9 @@ export default {
     namaRoom: {
       source: db.ref('/')
     }
+  },
+  beforeMount () {
+    this.getData()
   }
 }
 </script>
