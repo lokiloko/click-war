@@ -7,16 +7,19 @@ import axios from 'axios'
 import VueFire from 'vuefire'
 import router from './router'
 import store from './vuex/store'
-import './assets/js/bootstrap.min.js'
-import './assets/css/bootstrap.min.css'
+import '@/assets/css/bootstrap.min.css'
+import '@/assets/js/jquery.min.js'
+import '@/assets/js/bootstrap.min.js'
+import VeeValidate from 'vee-validate'
+import JsonWebToken from 'jsonwebtoken'
 
 Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:3000'
 })
 
-Vue.config.productionTip = false
-
 Vue.use(VueFire)
+Vue.use(VeeValidate)
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({

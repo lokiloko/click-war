@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
+import IndexFront from '@/components/IndexFront'
 import CreateRoom from '@/components/CreateRoom'
 import Room from '@/components/Room'
 
@@ -11,6 +12,11 @@ export default new Router({
     {
       path: '/',
       name: 'Hello',
+      component: IndexFront
+    },
+    {
+      path: '/login',
+      name: 'Login',
       component: HelloWorld
     },
     {
