@@ -7,6 +7,8 @@ import axios from 'axios'
 import VueFire from 'vuefire'
 import router from './router'
 import store from './vuex/store'
+import './assets/js/bootstrap.min.js'
+import './assets/css/bootstrap.min.css'
 
 Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:3000'

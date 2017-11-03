@@ -2,10 +2,112 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>firebase-client</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>Click War</title>
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <style media="screen">
+      .kiri {
+        /*background: red;*/
+        background-image: url('./img/cover.png');
+        background-size: cover;
+        height: 700px;
+        border: solid 2px;
+      }
+      .kanan {
+        background-image: url('./img/cover.png');
+        background-size: cover;
+        height: 700px;
+        border: solid 2px;
+      }
+      .navbar {
+        margin-bottom: 0;
+        border: none;
+        border-radius: 0
+      }
+      .content h3 {
+        color: silver
+      }
+      @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:700italic);
+      #countdown {
+        font-family: 'Roboto Condensed', sans-serif;
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -100px;
+        margin-top: -50px;
+        color: white;
+        font-size: 5em;
+        text-align: center;
+        font-weight: bold;
+        font-style: italic;
+        -webkit-opacity: 1;
+        -moz-opacity: 1;
+        opacity: 1;
+        -webkit-transition: opacity 0.4s ease;
+        -moz-transition: opacity 0.4s ease;
+        -ms-transition: opacity 0.4s ease;
+        -o-transition: opacity 0.4s ease;
+        /* solve for flicker problem */
+        -webkit-perspective: 1000;
+        -webkit-backface-visibility: hidden;
+      }
+      #countdown.puffer {
+        -webkit-opacity: 0;
+        -moz-opacity: 0;
+        opacity: 0;
+        -webkit-transform: scale(1.6, 1.6);
+        -moz-transform: scale(1.6, 1.6);
+        -ms-transform: scale(1.6, 1.6);
+        -o-transform: scale(1.6, 1.6);
+        -webkit-transition: all 0.4s ease-out;
+        -moz-transition: all 0.4s ease-out;
+        -ms-transition: all 0.4s ease-out;
+        -o-transition: all 0.4s ease-out;
+      }
+      #gambar1 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+
+      #gambar2 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+
+      #gambar3 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+      #gambar4 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+      #gambar5 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+      #gambar6 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <!-- <script src="js/bootstrap.min.js"></script> -->
 </html>
