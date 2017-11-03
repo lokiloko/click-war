@@ -39,6 +39,7 @@ class AuthController {
           if (correctPassword) {
 
             const payload = {
+              _id: user._id,
               name: user.name,
               username: user.username
             };
