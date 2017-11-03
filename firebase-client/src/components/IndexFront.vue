@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import JsonWebToken from 'jsonwebtoken'
   export default {
     data () {
       return {
@@ -24,7 +25,18 @@
       }
     },
     methods: {
-      
+      getData: function () {
+        if(localStorage.token){
+          let token = localStorage.token
+          let decoded = JsonWebToken.decode(token)
+          localStorage.setItem('dataUser', JSON.stringify(decoded))
+        }else{
+          this.$router.push('/login')
+        }
+      }
+    },
+    beforeMount () {
+      this.getData()
     }
   }
 </script>

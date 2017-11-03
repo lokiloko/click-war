@@ -10,12 +10,15 @@ import store from './vuex/store'
 import '@/assets/css/bootstrap.min.css'
 import '@/assets/js/jquery.min.js'
 import '@/assets/js/bootstrap.min.js'
+import VeeValidate from 'vee-validate'
+import JsonWebToken from 'jsonwebtoken'
 
 Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:3000'
 })
 
 Vue.use(VueFire)
+Vue.use(VeeValidate)
 
 Vue.config.productionTip = false
 
