@@ -12,7 +12,7 @@ export default new Router({
     {
       path: '/',
       name: 'Hello',
-      component: IndexFront
+      component: CreateRoom
     },
     {
       path: '/login',
