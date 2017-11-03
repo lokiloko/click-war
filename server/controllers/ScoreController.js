@@ -7,6 +7,8 @@ class ScoreController {
 
     Score
       .find({})
+      .populate('winner')
+      .populate('loser')
       .sort({ created_at: -1 })
       .then((scores) => {
         res.status(200).json(scores);
@@ -21,6 +23,8 @@ class ScoreController {
 
     Score
       .findOne({ _id: req.params.id })
+      .populate('winner')
+      .populate('loser')
       .then((score) => {
         if (score) {
           res.status(200).json(score);
@@ -50,6 +54,8 @@ class ScoreController {
               { winner: req.params.user_id },
               { loser: req.params.user_id }
             ] })
+            .populate('winner')
+            .populate('loser')
             .then((scores) => {
               res.status(200).json(scores);
             })
@@ -73,15 +79,29 @@ class ScoreController {
 
   static create (req, res) {
 
-    Score
-      .create({
-        winner: req.body.winner,
-        loser: req.body.loser,
-        winner_score: req.body.winner_score,
-        loser_score: req.body.loser_score
-      })
-      .then((score) => {
-        res.status(201).json(score);
+    Promise.all([
+      User.findOne({ username: req.body.winner }),
+      User.findOne({ username: req.body.loser })
+    ])
+      .then((users) => {
+
+        const winnerId = users[0]._id;
+        const loserId = users[1]._id;
+
+        Score
+        .create({
+          winner: winnerId,
+          loser: loserId,
+          winner_score: req.body.winner_score,
+          loser_score: req.body.loser_score
+        })
+        .then((score) => {
+          res.status(201).json(score);
+        })
+        .catch((err) => {
+          res.status(400).json(err);
+        });
+
       })
       .catch((err) => {
         res.status(400).json(err);
