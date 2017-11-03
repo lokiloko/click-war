@@ -256,7 +256,7 @@ export default {
         gambar3: 2,
         gambar4: 1,
         gambar5: -2,
-        gambar6: 2
+        // gambar6: 2
       },
 
     }
@@ -273,17 +273,37 @@ export default {
     },
     playAgain() {
       var winner;
+      var loser;
       if(this.room.player1.score >= this.room.player2.score) {
         winner = {
-
+          playerName: this.room.player1.playerName,
+          score:this.room.player1.score
+        }
+        loser = {
+          playerName: this.room.player2.playerName,
+          score:this.room.player2.score
+        }
+      } else {
+        winner = {
+          playerName: this.room.player2.playerName,
+          score:this.room.player2.score
+        }
+        loser = {
+          playerName: this.room.player1.playerName,
+          score:this.room.player1.score
         }
       }
-      // this.$http.post('/scores').send({
-      //   winner:
-      //   loser:
-      //   winner_score:
-      //   loser_score:
-      // })
+      this.$http.post('/scores').send({
+        winner: winner.playerName,
+        loser: loser.playerName,
+        winner_score: winner.score,
+        loser_score: loser.score
+      }).then((response) => {
+        this.startGame()
+        $('#loading').hide()
+      }).catch((err) => {
+        console.error(err)
+      })
     },
     startGame() {
       db.ref('/' + this.room_name).set({
@@ -315,8 +335,6 @@ export default {
     tambahScoreP2(tambah) {
       var self = this
       this.room.player2.score += tambah
-      console.log(this.room.player2.score)
-      console.log('kemari')
         db.ref('/' + this.room_name + '/player2').set({
           playerName: self.room.player2.playerName,
           score: self.room.player2.score,
