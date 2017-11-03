@@ -31,8 +31,8 @@ Returns score list of specific user (Array)
 
 Required field(s)
 
-- `winner` (ObjectId Format)
-- `loser` (ObjectId Format)
+- `winner` (String - User's username)
+- `loser` (String - User's username)
 - `winner_score` (Number)
 - `loser_score` (Number)
 

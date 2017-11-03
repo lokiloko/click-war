@@ -1,6 +1,11 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-mongoose.connection.openUri(process.env.MONGO_URL + '_' + process.env.NODE_ENV);
+mongoose.connection.openUri(
+  process.env.MONGO_URL +
+  '_' +
+  process.env.NODE_ENV +
+  (process.env.MONGO_URL_QUERY || '')
+);
 
 const Schema = mongoose.Schema;
 

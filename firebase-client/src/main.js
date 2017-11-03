@@ -19,7 +19,6 @@ Vue.prototype.$http = axios.create({
 
 Vue.use(VueFire)
 Vue.use(VeeValidate)
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
